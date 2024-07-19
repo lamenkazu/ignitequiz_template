@@ -44,7 +44,7 @@ export function History() {
     fetchHistory();
   }
 
-  function handleRemove(id: string, index: number) {
+  function handleRemove(id: string) {
     Alert.alert("Remover", "Deseja remover esse registro?", [
       {
         text: "Sim",
@@ -53,7 +53,7 @@ export function History() {
       {
         text: "Não",
         style: "cancel",
-        onPress: () => swipeableRefs.current?.[index].close(),
+        onPress: () => swipeableRefs.current?.[Number(id)].close(),
       },
     ]);
   }
@@ -79,7 +79,7 @@ export function History() {
         contentContainerStyle={styles.history}
         showsVerticalScrollIndicator={false}
       >
-        {history.map((item, index) => (
+        {history.map((item) => (
           <Animated.View
             key={item.id}
             entering={SlideInRight}
@@ -89,14 +89,14 @@ export function History() {
             <Swipeable
               ref={(ref) => {
                 if (ref) {
-                  swipeableRefs.current.push(ref);
+                  swipeableRefs.current[Number(item.id)] = ref;
                 }
               }}
               containerStyle={styles.swipeableContainer}
               overshootRight={false} // Trava no limite do componente à direita
               renderRightActions={() => (
                 <Pressable
-                  onPress={() => handleRemove(item.id, index)}
+                  onPress={() => handleRemove(item.id)}
                   style={styles.swipeableRemove}
                 >
                   <Trash size={32} color={THEME.COLORS.GREY_100} />
