@@ -84,7 +84,10 @@ export function History() {
               containerStyle={styles.swipeableContainer}
               overshootRight={false} // Trava no limite do componente à direita
               renderRightActions={() => (
-                <Pressable style={styles.swipeableRemove}>
+                <Pressable
+                  onPress={() => handleRemove(item.id)}
+                  style={styles.swipeableRemove}
+                >
                   <Trash size={32} color={THEME.COLORS.GREY_100} />
                 </Pressable>
               )}
