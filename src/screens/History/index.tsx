@@ -94,14 +94,14 @@ export function History() {
               }}
               containerStyle={styles.swipeableContainer}
               overshootRight={false} // Trava no limite do componente à direita
+              rightThreshold={10} // Tamanho necessário para ativar a função ao abrir.
+              onSwipeableOpen={() => handleRemove(item.id)} // Executa ao realizar o swipe do card.
               renderRightActions={() => (
-                <Pressable
-                  onPress={() => handleRemove(item.id)}
-                  style={styles.swipeableRemove}
-                >
+                <View style={styles.swipeableRemove}>
                   <Trash size={32} color={THEME.COLORS.GREY_100} />
-                </Pressable>
+                </View>
               )}
+              renderLeftActions={() => null} // Garantir no iOS que não seja renderizado nada no lado que não está sendo utilizado.
             >
               <HistoryCard data={item} />
             </Swipeable>
